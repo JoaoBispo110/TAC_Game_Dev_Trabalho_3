@@ -26,6 +26,7 @@
 			bool IsOpen();
 			void Update(float dt);
 			void Render();
+			void Render(float x, float y, float w, float h);
 			bool Is(string type);
 		
 	};

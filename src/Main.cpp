@@ -9,9 +9,9 @@ int main(int argc, char** argv){
 
 		delete game;
 	}catch(const char* error_msg){
-			cout << error_msg << endl;
-			getchar();
-		}
+		cout << error_msg << endl;
+		getchar();
+	}
 
 	return 0;
 }

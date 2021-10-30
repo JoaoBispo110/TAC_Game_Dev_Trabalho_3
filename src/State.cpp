@@ -95,7 +95,12 @@ void State::Input(){
 			// If the key was something else, then create an object.
 			else{
 				Vec2 objPos = Vec2( 200, 0 ).GetRotated( -M_PI + M_PI*(rand() % 1001)/500.0 ) + Vec2( mouseX, mouseY );
-				AddObject((int)objPos.x, (int)objPos.y);
+
+				try{
+					AddObject((int)objPos.x, (int)objPos.y);
+				}catch(const char* error_msg){
+					throw error_msg;
+				}
 			}
 		}
 	}
@@ -104,7 +109,12 @@ void State::Input(){
 void State::Update(float dt){
 	int i;
 
-	Input();
+	try{
+		Input();
+	}catch(const char* error_msg){
+		throw error_msg;
+	}
+	
 	for(i = 0; i < object_array.size(); i++){
 		object_array[i]->Update(dt);
 	}
@@ -118,23 +128,28 @@ void State::Update(float dt){
 
 void State::AddObject(int mouseX, int mouseY){
 	GameObject *enemy = new GameObject();
-	Sprite *sprite_enemy = new Sprite(enemy, ENEMY_SPRITE_PATH);
-	Sound *sound_enemy = new Sound(enemy, ENEMY_SOUND_PATH);
 	Face *face_enemy = new Face(enemy);
 
-	enemy->box.x = (mouseX - (sprite_enemy->GetWidth() / 2));
-	if(enemy->box.x < 0){
-		enemy->box.x = 0;
-	}
-	enemy->box.y = (mouseY - (sprite_enemy->GetHeight() / 2));
-	if(enemy->box.y < 0){
-		enemy->box.y = 0;
+	try{
+		Sprite *sprite_enemy = new Sprite(enemy, ENEMY_SPRITE_PATH);
+		Sound *sound_enemy = new Sound(enemy, ENEMY_SOUND_PATH);
+
+		enemy->box.x = (mouseX - (sprite_enemy->GetWidth() / 2));
+		if(enemy->box.x < 0){
+			enemy->box.x = 0;
+		}
+		enemy->box.y = (mouseY - (sprite_enemy->GetHeight() / 2));
+		if(enemy->box.y < 0){
+			enemy->box.y = 0;
+		}
+
+		enemy->AddComponent(sprite_enemy);
+		enemy->AddComponent(sound_enemy);
+		enemy->AddComponent(face_enemy);
+		
+	}catch(const char* error_msg){
+		throw error_msg;
 	}
 
-
-	enemy->AddComponent(sprite_enemy);
-	enemy->AddComponent(sound_enemy);
-	enemy->AddComponent(face_enemy);
-	
 	object_array.emplace_back(enemy);
 }

@@ -87,7 +87,13 @@ SDL_Renderer* Game::GetRenderer(){
 void Game::Run(){
 	while(state->QuitRequested() == false){
 		state->Update(0.0);//random placeholder number
-		state->Render();
+		
+		try{
+			state->Render();
+		}catch(const char* error_msg){
+			throw error_msg;
+		}
+
 		SDL_RenderPresent(renderer);
 		SDL_Delay(33);//33ms so the game runs at approximately 30FPS
 	}

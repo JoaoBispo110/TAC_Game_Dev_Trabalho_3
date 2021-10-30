@@ -14,8 +14,8 @@ Sprite::Sprite(GameObject *associated, string file) : Component(associated){
 	try{
 		Open(file);
 	}catch(const char* error_msg){
-			throw error_msg;
-		}
+		throw error_msg;
+	}
 }
 
 Sprite::~Sprite(){
@@ -40,7 +40,7 @@ void Sprite::Open(string file){
 	associated->box.h = height;
 	associated->box.w = width;
 
-	Render();
+	//Render();
 }
 
 void Sprite::SetClip(int x, int y, int w, int h){
@@ -51,12 +51,16 @@ void Sprite::SetClip(int x, int y, int w, int h){
 }
 
 void Sprite::Render(){
+	Render(associated->box.x, associated->box.y, associated->box.w, associated->box.h);
+}
+
+void Sprite::Render(float x, float y, float w, float h){
 	SDL_Rect dst;
 
-	dst.x = associated->box.x;
-	dst.y = associated->box.y;
-	dst.w = associated->box.w;
-	dst.h = associated->box.h;
+	dst.x = x;
+	dst.y = y;
+	dst.w = w;
+	dst.h = h;
 
 	SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dst);
 }

@@ -6,3 +6,7 @@ Component::Component(GameObject *associated){
 }
 
 Component::~Component(){}
+
+void Component::Clear(){
+	delete associated;
+}
