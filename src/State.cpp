@@ -15,7 +15,7 @@
 State::State(){
 	GameObject *bg_obj = new GameObject();
 
-	Sprite *bg = new Sprite(bg_obj, BG_PATH);
+	bg = new Sprite(bg_obj, BG_PATH);
 	bg_obj->AddComponent(bg);
 	object_array.emplace_back(bg_obj);
 
@@ -138,9 +138,15 @@ void State::AddObject(int mouseX, int mouseY){
 		if(enemy->box.x < 0){
 			enemy->box.x = 0;
 		}
+		else if(enemy->box.x > (bg->GetWidth() - sprite_enemy->GetWidth())){
+			enemy->box.x = bg->GetWidth() - sprite_enemy->GetWidth();
+		}
 		enemy->box.y = (mouseY - (sprite_enemy->GetHeight() / 2));
 		if(enemy->box.y < 0){
 			enemy->box.y = 0;
+		}
+		else if(enemy->box.y > (bg->GetHeight() - sprite_enemy->GetHeight())){
+			enemy->box.y = bg->GetHeight() - sprite_enemy->GetHeight();
 		}
 
 		enemy->AddComponent(sprite_enemy);

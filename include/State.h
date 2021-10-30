@@ -10,6 +10,7 @@
 	class State{
 		private:
 		//attributes:
+			Sprite* bg;
 			Music* music;
 			bool quitRequested;
 			std::vector< std::unique_ptr <GameObject> > object_array;
