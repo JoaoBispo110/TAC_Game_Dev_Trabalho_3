@@ -4,6 +4,7 @@
 #include "Rect.h"
 #include "GeometryMath.h"
 
+using namespace std;
 Vec2::Vec2(float x, float y){
 	this->x = x;
 	this->y = y;
@@ -113,5 +114,5 @@ Vec2 Vec2::GetRotated(float theta){
 }
 
 void Vec2::Print(){
-	printf("X: %f\nY: %f\n", x, y);
+	cout << "X: " << x << "\nY: " << y << "\n";
 }

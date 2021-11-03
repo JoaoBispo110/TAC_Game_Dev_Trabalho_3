@@ -9,15 +9,31 @@
 #include "Sound.h"
 #include "GameObject.h"
 #include "Face.h"
+#include "TileSet.h"
+#include "TileMap.h"
 #include "Vec2.h"
 #include "Constants.h"
 
 State::State(){
 	GameObject *bg_obj = new GameObject();
 
-	bg = new Sprite(bg_obj, BG_PATH);
-	bg_obj->AddComponent(bg);
-	object_array.emplace_back(bg_obj);
+	try{
+		bg = new Sprite(bg_obj, BG_PATH);
+		bg_obj->AddComponent(bg);
+		object_array.emplace_back(bg_obj);
+	}catch(const char* error_msg){
+		throw error_msg;
+	}
+
+	GameObject *tile_map_obj = new GameObject();
+	try{
+		TileSet *tile_set = new TileSet(TILE_WIDTH, TILE_HEIGHT, TILE_SET_PATH);
+		TileMap *tile_map = new TileMap(tile_map_obj, TILE_MAP_PATH, tile_set);
+		tile_map_obj->AddComponent(tile_map);
+		object_array.emplace_back(tile_map_obj);
+	}catch(const char* error_msg){
+		throw error_msg;
+	}
 
 	quitRequested = false;
 
@@ -25,8 +41,8 @@ State::State(){
 		music = new Music(MUSIC_PATH);
 		music->Play();
 	}catch(const char* error_msg){
-			throw error_msg;
-		}
+		throw error_msg;
+	}
 }
 
 State::~State(){

@@ -6,7 +6,6 @@
 	#include "SDL_include.h"
 	#include "Component.h"
 
-	using namespace std;
 	class Sprite : public Component{
 		private:
 		//attributes:
@@ -17,9 +16,9 @@
 		public:
 		//methods:
 			Sprite(GameObject *associated);
-			Sprite(GameObject *associated, string file);
+			Sprite(GameObject *associated, std::string file);
 			~Sprite();
-			void Open(string file);
+			void Open(std::string file);
 			void SetClip(int x, int y, int w, int h);
 			int GetWidth();
 			int GetHeight();
@@ -27,7 +26,7 @@
 			void Update(float dt);
 			void Render();
 			void Render(float x, float y, float w, float h);
-			bool Is(string type);
+			bool Is(std::string type);
 		
 	};
 	

@@ -3,7 +3,7 @@
 
 	#include <vector>
 	#include <memory>
-	#include "Sprite.h"
+	#include "TileMap.h"
 	#include "Music.h"
 	#include "GameObject.fwd.h"
 
