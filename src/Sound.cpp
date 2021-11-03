@@ -2,6 +2,7 @@
 #include "Sound.h"
 #include "Component.h"
 #include "GameObject.h"
+#include "Resources.h"
 
 using namespace std;
 Sound::Sound(GameObject *associated) : Component(associated){
@@ -35,7 +36,7 @@ void Sound::Stop(){
 
 void Sound::Open(string file){
 	try{
-		chunk = Mix_LoadWAV(file.c_str());
+		chunk = Resources::GetSound(file);
 	}catch(const char* error_msg){
 			throw error_msg;
 	}

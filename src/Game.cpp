@@ -2,6 +2,7 @@
 #define INCLUDE_SDL_MIXER
 #include "SDL_include.h"
 #include "Game.h"
+#include "Resources.h"
 
 using namespace std;
 Game::Game(string title, int width, int height){
@@ -97,4 +98,6 @@ void Game::Run(){
 		SDL_RenderPresent(renderer);
 		SDL_Delay(33);//33ms so the game runs at approximately 30FPS
 	}
+
+	Resources::ClearImages();
 }

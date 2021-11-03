@@ -1,5 +1,6 @@
 #include <string>
 #include "Music.h"
+#include "Resources.h"
 
 using namespace std;
 Music::Music(){
@@ -21,8 +22,8 @@ void Music::Play(int times){
 		try{
 			Mix_PlayMusic(music, times);
 		}catch(const char* error_msg){
-				throw error_msg;
-			}
+			throw error_msg;
+		}
 	}
 	else{
 		throw "Tried to play a song, but song pointer is Null";
@@ -34,12 +35,10 @@ void Music::Stop(int msToStop){
 }
 
 void Music::Open(string file){
-	if(music != nullptr){
-		Stop();
-	}
-	music = Mix_LoadMUS(file.c_str());
-	if(music == nullptr){
-		throw SDL_GetError();
+	try{
+		music = Resources::GetMusic(file);
+	}catch(const char* error_msg){
+		throw error_msg;
 	}
 }
 
